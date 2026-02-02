@@ -1,10 +1,10 @@
 # GrandBoard ESPHome LED Controller
 
-ESPHome firmware for controlling WS2812 RGB LEDs around a GrandBoard 3s dartboard, with diyHue integration for score-reactive lighting via the GrandBoard app's native Philips Hue support.
+ESPHome firmware for controlling WS2812/WS2811 RGB LEDs around a GrandBoard 3s dartboard, with diyHue integration for score-reactive lighting via the GrandBoard app's native Philips Hue support.
 
 ## Features
 
-- **WS2812 RGB LED Control** - Full color control with effects (Rainbow, Strobe, Pulse, etc.)
+- **WS2812/WS2811 RGB LED Control** - Full color control with effects (Rainbow, Strobe, Pulse, etc.)
 - **diyHue Integration** - Appears as a Philips Hue light to the GrandBoard app
 - **Web Dashboard** - Built-in web interface for manual control and diagnostics
 - **Home Assistant Compatible** - Native ESPHome integration
@@ -15,29 +15,32 @@ ESPHome firmware for controlling WS2812 RGB LEDs around a GrandBoard 3s dartboar
 | Component | Specification |
 |-----------|---------------|
 | Controller | Wemos D1 Mini (ESP8266) |
-| LED Strip | WS2812/WS2811 RGB (70 addressable LEDs) |
+| LED Strip | WS2811 RGB 12V (~70 addressable pixels) |
+| Level Shifter | 3.3V to 5V logic converter |
+| Capacitor | 1000µF 16V electrolytic |
+| Resistor | 330Ω on data line |
+| Power Supply | 12V 5A DC |
 | Data Pin | GPIO2 (D4) |
-| Power | 5V or 12V depending on strip |
 
-### Wiring
+See [docs/hardware-build.md](docs/hardware-build.md) for complete build guide with wiring diagrams.
+
+### Wiring Overview
 
 ```
-D1 Mini          LED Strip
---------         ---------
-GPIO2 (D4) ----> Data In
-GND        ----> GND
-5V/VIN     ----> VCC (or external power supply)
+D1 Mini GPIO2 (D4) --[330Ω]-- Level Shifter LV --> HV --> LED Data In
+D1 Mini GND -----------------------------------------> LED GND --> Power Supply (-)
+Power Supply 12V (+) --[1000µF Cap]----------------> LED VCC
 ```
-
-**Recommended:** Add a 330Ω resistor on the data line and a 1000µF capacitor across power for stability.
 
 ## Network Configuration
 
-| Service | Address |
-|---------|---------|
-| ESPHome Device | 10.0.12.194 |
-| diyHue Bridge | 10.0.12.3 |
-| Home Assistant | 10.0.12.3:8123 |
+Configure these addresses in `dartboard.yaml` for your network:
+
+| Service | Example Address | Description |
+|---------|-----------------|-------------|
+| ESPHome Device | `192.168.1.100` | Static IP for the LED controller |
+| diyHue Bridge | `192.168.1.50` | Your diyHue Docker host |
+| Gateway | `192.168.1.1` | Your router |
 
 ## Quick Start
 
@@ -56,7 +59,19 @@ wifi_password: "YourWiFiPassword"
 ota_password: "YourOTAPassword"
 ```
 
-### 2. Flash Firmware
+### 2. Configure Network
+
+Edit `esphome/dartboard.yaml` and update the IP addresses for your network:
+
+```yaml
+wifi:
+  manual_ip:
+    static_ip: 192.168.1.100  # Choose an unused IP on your network
+    gateway: 192.168.1.1       # Your router IP
+    subnet: 255.255.255.0
+```
+
+### 3. Flash Firmware
 
 Using ESPHome CLI:
 ```bash
@@ -65,14 +80,14 @@ esphome run esphome/dartboard.yaml
 
 Or via Home Assistant ESPHome addon.
 
-### 3. Configure diyHue
+### 4. Configure diyHue
 
 The light should be auto-discovered. If not, add manually in diyHue with:
 - Protocol: `esphome`
-- IP: `10.0.12.194`
+- IP: `<your-device-ip>`
 - Model: `ESPHome-RGB`
 
-### 4. Pair GrandBoard App
+### 5. Pair GrandBoard App
 
 1. Open GrandBoard app → Settings → Hue Lighting
 2. Search for bridges → Select diyHue
@@ -81,18 +96,18 @@ The light should be auto-discovered. If not, add manually in diyHue with:
 
 **Link button command:**
 ```bash
-curl -X PUT 'http://10.0.12.3/api/0/config' -d '{"linkbutton":true}'
+curl -X PUT 'http://<diyhue-ip>/api/0/config' -d '{"linkbutton":true}'
 ```
 
 ## Web Interface
 
-Access the dashboard at: **http://10.0.12.194**
+Access the dashboard at: **http://\<device-ip\>**
 
 Features:
 - Color picker and brightness control
 - LED effects (Rainbow, Strobe, Pulse, Flicker, Random)
 - WiFi signal strength
-- Device uptime
+- Device uptime and IP address
 - Restart/Factory Reset buttons
 
 ## API Endpoints
@@ -111,18 +126,18 @@ Features:
 
 Turn on red:
 ```bash
-curl -X POST "http://10.0.12.194/light/color_led/turn_on?r=255&g=0&b=0&brightness=255"
+curl -X POST "http://<device-ip>/light/color_led/turn_on?r=255&g=0&b=0&brightness=255"
 ```
 
 Turn off:
 ```bash
-curl -X POST "http://10.0.12.194/light/color_led/turn_off"
+curl -X POST "http://<device-ip>/light/color_led/turn_off"
 ```
 
 Via diyHue (Hue API):
 ```bash
 curl -X PUT -d '{"on":true,"bri":254,"xy":[0.64,0.33]}' \
-  "http://10.0.12.3/api/<username>/lights/8/state"
+  "http://<diyhue-ip>/api/<username>/lights/<light-id>/state"
 ```
 
 ## Troubleshooting
@@ -140,8 +155,8 @@ light:
 
 1. Verify endpoints respond:
    ```bash
-   curl http://10.0.12.194/text_sensor/light_id
-   curl http://10.0.12.194/light/color_led
+   curl http://<device-ip>/text_sensor/light_id
+   curl http://<device-ip>/light/color_led
    ```
 
 2. Check diyHue logs:
@@ -158,17 +173,33 @@ light:
 
 This was an issue with WLED + diyHue. The ESPHome integration resolves this.
 
+### LEDs flicker or show wrong colors randomly
+
+- Check level shifter connections
+- Verify 330Ω resistor is on data line
+- Ensure capacitor is across power supply
+- Check for loose solder joints
+
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| [README.md](README.md) | This file - overview and quick start |
+| [docs/setup-guide.md](docs/setup-guide.md) | Detailed setup instructions |
+| [docs/hardware-build.md](docs/hardware-build.md) | Hardware specs, wiring diagrams, BOM |
+
 ## File Structure
 
 ```
 grandboard-esphome/
-├── README.md                 # This file
+├── README.md                 # Overview and quick start
 ├── esphome/
 │   ├── dartboard.yaml        # Main ESPHome configuration
 │   ├── secrets.yaml          # Your secrets (git ignored)
 │   └── secrets.yaml.example  # Secrets template
 └── docs/
-    └── setup-guide.md        # Detailed setup instructions
+    ├── setup-guide.md        # Detailed setup instructions
+    └── hardware-build.md     # Hardware build guide
 ```
 
 ## License

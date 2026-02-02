@@ -86,7 +86,7 @@ light:
 ```yaml
 wifi:
   manual_ip:
-    static_ip: 10.0.12.194  # Change to your network
+    static_ip: <device-ip>  # Change to your network
     gateway: 10.0.12.1
     subnet: 255.255.255.0
 ```
@@ -109,14 +109,14 @@ Select the USB serial port when prompted.
 
 **Subsequent updates (OTA):**
 ```bash
-esphome run esphome/dartboard.yaml --device 10.0.12.194
+esphome run esphome/dartboard.yaml --device <device-ip>
 ```
 
 Or use the ESPHome dashboard in Home Assistant.
 
 ### Step 5: Verify Device
 
-1. Open http://10.0.12.194 in browser
+1. Open http://<device-ip> in browser
 2. You should see the ESPHome dashboard with:
    - Light controls (on/off, color, effects)
    - WiFi signal strength
@@ -134,7 +134,7 @@ docker logs diyhue | grep -i esphome
 
 You should see:
 ```
-ESPHome: Found dartboard-leds at ip 10.0.12.194
+ESPHome: Found dartboard-leds at ip <device-ip>
 ESPHome: dartboard-leds is a RGB ESPHome device
 ```
 
@@ -153,7 +153,7 @@ Add or modify the entry:
   modelid: LCT015
   protocol: esphome
   protocol_cfg:
-    ip: 10.0.12.194
+    ip: <device-ip>
     mac: a4:cf:12:be:3d:d1
     name: dartboard-leds
     esphome_model: ESPHome-RGB
@@ -180,7 +180,7 @@ docker restart diyhue
 When the app asks you to press the bridge link button:
 
 ```bash
-curl -X PUT 'http://10.0.12.3/api/0/config' -d '{"linkbutton":true}'
+curl -X PUT 'http://<diyhue-ip>/api/0/config' -d '{"linkbutton":true}'
 ```
 
 You have 30 seconds to complete pairing after this command.
@@ -198,7 +198,7 @@ You have 30 seconds to complete pairing after this command.
 
 ### Test via ESPHome Dashboard
 
-1. Go to http://10.0.12.194
+1. Go to http://<device-ip>
 2. Use the color picker to change colors
 3. Try different effects (Rainbow, Strobe, Pulse)
 
@@ -207,19 +207,19 @@ You have 30 seconds to complete pairing after this command.
 ```bash
 # Turn on red
 curl -X PUT -d '{"on":true,"bri":254,"xy":[0.64,0.33]}' \
-  "http://10.0.12.3/api/16a0ef98fed911f0a321fc4dd43b4d30/lights/8/state"
+  "http://<diyhue-ip>/api/<api-username>/lights/8/state"
 
 # Turn on green
 curl -X PUT -d '{"on":true,"bri":254,"xy":[0.17,0.7]}' \
-  "http://10.0.12.3/api/16a0ef98fed911f0a321fc4dd43b4d30/lights/8/state"
+  "http://<diyhue-ip>/api/<api-username>/lights/8/state"
 
 # Turn on blue
 curl -X PUT -d '{"on":true,"bri":254,"xy":[0.15,0.06]}' \
-  "http://10.0.12.3/api/16a0ef98fed911f0a321fc4dd43b4d30/lights/8/state"
+  "http://<diyhue-ip>/api/<api-username>/lights/8/state"
 
 # Turn off
 curl -X PUT -d '{"on":false}' \
-  "http://10.0.12.3/api/16a0ef98fed911f0a321fc4dd43b4d30/lights/8/state"
+  "http://<diyhue-ip>/api/<api-username>/lights/8/state"
 ```
 
 ### Test with Darts
@@ -246,7 +246,7 @@ Change color order in dartboard.yaml:
 
 ### diyHue shows "unreachable"
 
-1. Verify ESPHome is responding: `curl http://10.0.12.194/light/color_led`
+1. Verify ESPHome is responding: `curl http://<device-ip>/light/color_led`
 2. Check diyHue protocol is set to `esphome` (not `native_multi`)
 3. Restart diyHue: `docker restart diyhue`
 
@@ -254,7 +254,7 @@ Change color order in dartboard.yaml:
 
 1. Ensure phone is on same network as diyHue
 2. Check diyHue is running: `docker ps | grep diyhue`
-3. Verify diyHue responds: `curl http://10.0.12.3/api/nouser/config`
+3. Verify diyHue responds: `curl http://<diyhue-ip>/api/nouser/config`
 
 ### Lights dim to nothing when scoring
 
@@ -265,30 +265,30 @@ This was an issue with WLED firmware. ESPHome integration resolves this by using
 ### Updating Firmware
 
 ```bash
-esphome upload esphome/dartboard.yaml --device 10.0.12.194
+esphome upload esphome/dartboard.yaml --device <device-ip>
 ```
 
 ### Viewing Logs
 
 ```bash
-esphome logs esphome/dartboard.yaml --device 10.0.12.194
+esphome logs esphome/dartboard.yaml --device <device-ip>
 ```
 
 ### Factory Reset
 
-Access http://10.0.12.194 and click "Factory Reset" button, or:
+Access http://<device-ip> and click "Factory Reset" button, or:
 ```bash
-curl -X POST http://10.0.12.194/button/factory_reset/press
+curl -X POST http://<device-ip>/button/factory_reset/press
 ```
 
 ## Useful Commands
 
 ```bash
 # ESPHome device status
-curl http://10.0.12.194/light/color_led
+curl http://<device-ip>/light/color_led
 
 # diyHue lights list
-curl http://10.0.12.3/api/16a0ef98fed911f0a321fc4dd43b4d30/lights
+curl http://<diyhue-ip>/api/<api-username>/lights
 
 # diyHue logs
 docker logs diyhue -f
@@ -297,5 +297,5 @@ docker logs diyhue -f
 docker restart diyhue
 
 # Press link button
-curl -X PUT 'http://10.0.12.3/api/0/config' -d '{"linkbutton":true}'
+curl -X PUT 'http://<diyhue-ip>/api/0/config' -d '{"linkbutton":true}'
 ```
