@@ -4,6 +4,14 @@ Complete hardware specifications and wiring guide for the GrandBoard ESPHome LED
 
 ## Bill of Materials
 
+### Dartboard
+
+| Component | Specification | Qty | Link |
+|-----------|---------------|-----|------|
+| Dartboard | GrandBoard 3s Electronic Dartboard | 1 | [Amazon](https://www.amazon.com/s?k=granboard+3s+dartboard&tag=rvpc-20) |
+
+### Electronics
+
 | Component | Specification | Qty | Link |
 |-----------|---------------|-----|------|
 | Microcontroller | Wemos D1 Mini (ESP8266) | 1 | [Amazon](https://www.amazon.com/s?k=wemos+d1+mini+esp8266&tag=rvpc-20) |
