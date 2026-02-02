@@ -1,0 +1,181 @@
+# =============================================================================
+# GrandBoard ESPHome - Dartboard LED Controller
+# =============================================================================
+# This ESPHome configuration controls WS2812 RGB LEDs around a GrandBoard 3s
+# dartboard, integrating with diyHue to enable the GrandBoard app's native
+# Philips Hue support for score-reactive lighting.
+#
+# Hardware:
+#   - Board: Wemos D1 Mini (ESP8266)
+#   - LEDs: WS2812 RGB strip (70 LEDs)
+#   - Data Pin: GPIO2 (D4)
+#   - Color Order: RGB
+#
+# Integration:
+#   - diyHue bridge discovers this device via /text_sensor/light_id endpoint
+#   - Light control via /light/color_led endpoint
+#   - GrandBoard app connects to diyHue as a Philips Hue bridge
+#
+# =============================================================================
+
+esphome:
+  name: dartboard-leds
+  friendly_name: Dartboard LEDs
+  comment: "GrandBoard 3s dartboard LED controller with diyHue integration"
+  project:
+    name: "grandboard.esphome-leds"
+    version: "1.0.0"
+
+esp8266:
+  board: d1_mini
+
+# -----------------------------------------------------------------------------
+# WiFi Configuration
+# -----------------------------------------------------------------------------
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  manual_ip:
+    static_ip: 10.0.12.194
+    gateway: 10.0.12.1
+    subnet: 255.255.255.0
+
+  # Fallback AP if WiFi connection fails
+  ap:
+    ssid: "Dartboard-LEDs"
+    password: "dartboard123"
+
+captive_portal:
+
+# -----------------------------------------------------------------------------
+# Logging - Disabled on serial since GPIO2 uses UART1 for LED data
+# -----------------------------------------------------------------------------
+logger:
+  baud_rate: 0
+
+# -----------------------------------------------------------------------------
+# Home Assistant API
+# -----------------------------------------------------------------------------
+api:
+  reboot_timeout: 0s
+
+# -----------------------------------------------------------------------------
+# OTA Updates
+# -----------------------------------------------------------------------------
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+# -----------------------------------------------------------------------------
+# Web Server - Provides dashboard at http://10.0.12.194
+# -----------------------------------------------------------------------------
+web_server:
+  port: 80
+
+# -----------------------------------------------------------------------------
+# WS2812 LED Strip
+# -----------------------------------------------------------------------------
+light:
+  - platform: neopixelbus
+    type: RGB
+    variant: WS2812
+    pin: GPIO2
+    num_leds: 70
+    name: "color_led"
+    id: color_led
+    method:
+      type: esp8266_uart
+      bus: 1
+    default_transition_length: 0s
+    effects:
+      - random:
+          name: "Random"
+          transition_length: 2s
+          update_interval: 2s
+      - strobe:
+          name: "Strobe"
+      - flicker:
+          name: "Flicker"
+      - addressable_rainbow:
+          name: "Rainbow"
+          speed: 10
+          width: 50
+      - pulse:
+          name: "Pulse"
+          transition_length: 1s
+          update_interval: 1s
+
+# -----------------------------------------------------------------------------
+# Diagnostic Sensors
+# -----------------------------------------------------------------------------
+sensor:
+  # WiFi Signal Strength
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    update_interval: 60s
+    entity_category: diagnostic
+
+  # WiFi Signal Percentage (easier to read)
+  - platform: wifi_signal
+    name: "WiFi Signal Percent"
+    update_interval: 60s
+    filters:
+      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
+    unit_of_measurement: "%"
+    entity_category: diagnostic
+
+  # Device Uptime
+  - platform: uptime
+    name: "Uptime"
+    entity_category: diagnostic
+
+# -----------------------------------------------------------------------------
+# Text Sensors
+# -----------------------------------------------------------------------------
+text_sensor:
+  # diyHue Discovery - Required for diyHue to find this device
+  - platform: template
+    name: "light_id"
+    id: light_id
+    lambda: |-
+      char response[100];
+      memset(response, 0, 100);
+      strcat(response, "esphome_diyhue_light;");
+      strcat(response, WiFi.macAddress().c_str());
+      strcat(response, ";");
+      strcat(response, App.get_name().c_str());
+      strcat(response, ";0;0");
+      return {response};
+    update_interval: 24h
+
+  # WiFi Info
+  - platform: wifi_info
+    ip_address:
+      name: "IP Address"
+      entity_category: diagnostic
+    ssid:
+      name: "Connected SSID"
+      entity_category: diagnostic
+    mac_address:
+      name: "MAC Address"
+      entity_category: diagnostic
+
+  # ESPHome Version
+  - platform: version
+    name: "ESPHome Version"
+    entity_category: diagnostic
+
+# -----------------------------------------------------------------------------
+# Buttons
+# -----------------------------------------------------------------------------
+button:
+  # Restart Button
+  - platform: restart
+    name: "Restart"
+    entity_category: config
+
+  # Factory Reset Button
+  - platform: factory_reset
+    name: "Factory Reset"
+    entity_category: config

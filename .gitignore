@@ -1,0 +1,26 @@
+# Secrets - NEVER commit
+esphome/secrets.yaml
+secrets.yaml
+
+# ESPHome build artifacts
+esphome/.esphome/
+.esphome/
+*.bin
+
+# Claude Code settings
+.claude/
+
+# Windows artifacts
+nul
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Old files (can be deleted)
+*.bak
+*.old
