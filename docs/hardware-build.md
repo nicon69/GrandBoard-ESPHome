@@ -4,17 +4,33 @@ Complete hardware specifications and wiring guide for the GrandBoard ESPHome LED
 
 ## Bill of Materials
 
-| Component | Specification | Quantity | Notes |
-|-----------|---------------|----------|-------|
-| Microcontroller | Wemos D1 Mini (ESP8266) | 1 | 4MB flash recommended |
-| LED Strip | BTF-LIGHTING WS2811 RGB COB | 1 | 12V, 70 addressable pixels |
-| Level Shifter | 3.3V to 5V Logic Level Converter | 1 | Required for reliable data signal |
-| Capacitor | 1000µF 16V Electrolytic | 1 | Across power supply, prevents voltage spikes |
-| Resistor | 330Ω 1/4W | 1 | Inline with data line |
-| Power Supply | 12V DC, 5A minimum | 1 | Sized for LED strip power draw |
-| DC Barrel Jack | 5.5mm x 2.1mm | 1 | For power supply connection |
-| Wire | 22 AWG stranded | ~2m | For connections |
-| Heat Shrink | Assorted sizes | As needed | For wire protection |
+| Component | Specification | Qty | Amazon Link |
+|-----------|---------------|-----|-------------|
+| Microcontroller | Wemos D1 Mini (ESP8266) | 1 | [Buy on Amazon](AFFILIATE_LINK_D1_MINI) |
+| LED Strip | BTF-LIGHTING WS2811 RGB COB 12V | 1 | [Buy on Amazon](AFFILIATE_LINK_LED_STRIP) |
+| Level Shifter | 3.3V to 5V Logic Level Converter (4ch) | 1 | [Buy on Amazon](AFFILIATE_LINK_LEVEL_SHIFTER) |
+| Capacitor | 1000µF 16V Electrolytic | 1 | [Buy on Amazon](AFFILIATE_LINK_CAPACITOR) |
+| Resistor Kit | 330Ω 1/4W (or assorted kit) | 1 | [Buy on Amazon](AFFILIATE_LINK_RESISTOR) |
+| Power Supply | 12V DC 5A Adapter | 1 | [Buy on Amazon](AFFILIATE_LINK_POWER_SUPPLY) |
+| DC Barrel Jack | 5.5mm x 2.1mm Female Panel Mount | 1 | [Buy on Amazon](AFFILIATE_LINK_BARREL_JACK) |
+| Proto Board | 5x7cm Double-Sided PCB | 1 | [Buy on Amazon](AFFILIATE_LINK_PCB) |
+| Screw Terminals | 2-pin and 3-pin 5.08mm | 4 | [Buy on Amazon](AFFILIATE_LINK_TERMINALS) |
+| Wire | 22 AWG Stranded Silicone | 1 | [Buy on Amazon](AFFILIATE_LINK_WIRE) |
+| Heat Shrink | Assorted Sizes Kit | 1 | [Buy on Amazon](AFFILIATE_LINK_HEATSHRINK) |
+| Project Box | 100x60x25mm ABS Enclosure | 1 | [Buy on Amazon](AFFILIATE_LINK_ENCLOSURE) |
+
+> **Note:** Replace `AFFILIATE_LINK_*` placeholders with your Amazon Associates links.
+
+### Recommended Products (Search Terms)
+
+If the links above don't work, search Amazon for:
+- **D1 Mini**: "Wemos D1 Mini ESP8266 development board"
+- **LED Strip**: "BTF-LIGHTING WS2811 COB LED strip 12V RGB"
+- **Level Shifter**: "Logic level converter 3.3V 5V bidirectional 4 channel"
+- **Capacitor**: "1000uF 16V electrolytic capacitor"
+- **Power Supply**: "12V 5A power adapter 5.5mm barrel"
+- **Proto Board**: "5x7cm prototype PCB double sided"
+- **Screw Terminals**: "PCB screw terminal block 5.08mm"
 
 ## LED Strip Specifications
 
@@ -201,6 +217,81 @@ The D1 Mini can be powered via:
     - HV1: LED Strip Data In
     - HV:  5V supply
     - GND: Common ground (both sides)
+```
+
+## PCB Assembly
+
+Using a prototype PCB board creates a cleaner, more reliable build than loose wiring.
+
+### PCB Layout (5x7cm board)
+
+```
+    ┌─────────────────────────────────────────────────────────┐
+    │  ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○  │
+    │  ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○  │
+    │  ○ ○ ┌─────────────────────┐ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○  │
+    │  ○ ○ │                     │ ○ ○ ┌───┐ ○ ○ ○ ○ ○ ○ ○  │
+    │  ○ ○ │     D1 Mini         │ ○ ○ │330│ ○ ○ ○ ○ ○ ○ ○  │
+    │  ○ ○ │    (socket)         │ ○ ○ │ Ω │ ○ ○ ○ ○ ○ ○ ○  │
+    │  ○ ○ │                     │ ○ ○ └───┘ ○ ○ ○ ○ ○ ○ ○  │
+    │  ○ ○ └─────────────────────┘ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○  │
+    │  ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○  │
+    │  ○ ○ ┌─────────────┐ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○  │
+    │  ○ ○ │Level Shifter│ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○  │
+    │  ○ ○ └─────────────┘ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○  │
+    │  ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○  │
+    │  ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ [====CAP====] ○ ○  │
+    │  ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○ ○  │
+    │                                                         │
+    │  [12V IN]        [GND]        [LED OUT]                │
+    │   ┌──┬──┐       ┌──┬──┐      ┌──┬──┬──┐                │
+    │   │+ │- │       │G │G │      │V │D │G │                │
+    │   └──┴──┘       └──┴──┘      └──┴──┴──┘                │
+    └─────────────────────────────────────────────────────────┘
+
+    Screw Terminals:
+    - 12V IN: Power supply input (+12V, GND)
+    - GND: Extra ground connection point
+    - LED OUT: To LED strip (VCC, Data, GND)
+```
+
+### Component Placement
+
+1. **D1 Mini** - Use female header sockets so the board is removable
+2. **Level Shifter** - Mount near the D1 Mini, close to GPIO2
+3. **330Ω Resistor** - Between level shifter output and LED terminal
+4. **1000µF Capacitor** - Near the 12V input terminal, observe polarity!
+5. **Screw Terminals** - At board edge for easy wire connections
+
+### Soldering Order
+
+1. Screw terminals (lowest profile)
+2. Resistor
+3. Female headers for D1 Mini
+4. Level shifter (or headers for it)
+5. Capacitor (tallest component)
+6. Wire bridges on back of PCB
+
+### PCB Wiring (Back Side)
+
+Use short wire jumpers on the back of the PCB to connect:
+
+```
+12V+ ──────────────────────────> LED VCC terminal
+      └──> Capacitor (+)
+
+GND ───┬──> D1 Mini GND
+       ├──> Level Shifter GND (both sides)
+       ├──> Capacitor (-)
+       └──> LED GND terminal
+
+D1 Mini 3.3V ──> Level Shifter LV
+
+D1 Mini 5V ────> Level Shifter HV
+
+D1 Mini GPIO2 (D4) ──> Level Shifter LV1 input
+
+Level Shifter HV1 output ──> 330Ω ──> LED Data terminal
 ```
 
 ## Enclosure Considerations
