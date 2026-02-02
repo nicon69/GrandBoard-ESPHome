@@ -4,33 +4,22 @@ Complete hardware specifications and wiring guide for the GrandBoard ESPHome LED
 
 ## Bill of Materials
 
-| Component | Specification | Qty | Amazon Link |
-|-----------|---------------|-----|-------------|
-| Microcontroller | Wemos D1 Mini (ESP8266) | 1 | [Buy on Amazon](AFFILIATE_LINK_D1_MINI) |
-| LED Strip | BTF-LIGHTING WS2811 RGB COB 12V | 1 | [Buy on Amazon](AFFILIATE_LINK_LED_STRIP) |
-| Level Shifter | 3.3V to 5V Logic Level Converter (4ch) | 1 | [Buy on Amazon](AFFILIATE_LINK_LEVEL_SHIFTER) |
-| Capacitor | 1000µF 16V Electrolytic | 1 | [Buy on Amazon](AFFILIATE_LINK_CAPACITOR) |
-| Resistor Kit | 330Ω 1/4W (or assorted kit) | 1 | [Buy on Amazon](AFFILIATE_LINK_RESISTOR) |
-| Power Supply | 12V DC 5A Adapter | 1 | [Buy on Amazon](AFFILIATE_LINK_POWER_SUPPLY) |
-| DC Barrel Jack | 5.5mm x 2.1mm Female Panel Mount | 1 | [Buy on Amazon](AFFILIATE_LINK_BARREL_JACK) |
-| Proto Board | 5x7cm Double-Sided PCB | 1 | [Buy on Amazon](AFFILIATE_LINK_PCB) |
-| Screw Terminals | 2-pin and 3-pin 5.08mm | 4 | [Buy on Amazon](AFFILIATE_LINK_TERMINALS) |
-| Wire | 22 AWG Stranded Silicone | 1 | [Buy on Amazon](AFFILIATE_LINK_WIRE) |
-| Heat Shrink | Assorted Sizes Kit | 1 | [Buy on Amazon](AFFILIATE_LINK_HEATSHRINK) |
-| Project Box | 100x60x25mm ABS Enclosure | 1 | [Buy on Amazon](AFFILIATE_LINK_ENCLOSURE) |
+| Component | Specification | Qty | Link |
+|-----------|---------------|-----|------|
+| Microcontroller | Wemos D1 Mini (ESP8266) | 1 | [Amazon](https://www.amazon.com/s?k=wemos+d1+mini+esp8266) |
+| LED Strip | BTF-LIGHTING WS2811 RGB COB 12V | 1 | [Amazon](https://www.amazon.com/s?k=BTF-LIGHTING+WS2811+COB+LED+strip+12V) |
+| Level Shifter | 3.3V to 5V Logic Level Converter (4ch) | 1 | [Amazon](https://www.amazon.com/s?k=logic+level+converter+3.3v+5v+4+channel) |
+| Capacitor | 1000µF 16V Electrolytic | 1 | [Amazon](https://www.amazon.com/s?k=1000uf+16v+electrolytic+capacitor) |
+| Resistor Kit | 330Ω 1/4W (or assorted kit) | 1 | [Amazon](https://www.amazon.com/s?k=resistor+assortment+kit) |
+| Power Supply | 12V DC 5A Adapter | 1 | [Amazon](https://www.amazon.com/s?k=12v+5a+power+supply+adapter+5.5mm) |
+| DC Barrel Jack | 5.5mm x 2.1mm Female Panel Mount | 1 | [Amazon](https://www.amazon.com/s?k=dc+barrel+jack+panel+mount+5.5mm) |
+| Proto Board | 5x7cm Double-Sided PCB | 1 | [Amazon](https://www.amazon.com/s?k=5x7cm+prototype+pcb+board) |
+| Screw Terminals | 2-pin and 3-pin 5.08mm | 4 | [Amazon](https://www.amazon.com/s?k=pcb+screw+terminal+block+5.08mm) |
+| Wire | 22 AWG Stranded Silicone | 1 | [Amazon](https://www.amazon.com/s?k=22+awg+silicone+wire) |
+| Heat Shrink | Assorted Sizes Kit | 1 | [Amazon](https://www.amazon.com/s?k=heat+shrink+tubing+kit) |
+| Project Box | 100x60x25mm ABS Enclosure | 1 | [Amazon](https://www.amazon.com/s?k=project+box+enclosure+abs+100x60) |
 
-> **Note:** Replace `AFFILIATE_LINK_*` placeholders with your Amazon Associates links.
-
-### Recommended Products (Search Terms)
-
-If the links above don't work, search Amazon for:
-- **D1 Mini**: "Wemos D1 Mini ESP8266 development board"
-- **LED Strip**: "BTF-LIGHTING WS2811 COB LED strip 12V RGB"
-- **Level Shifter**: "Logic level converter 3.3V 5V bidirectional 4 channel"
-- **Capacitor**: "1000uF 16V electrolytic capacitor"
-- **Power Supply**: "12V 5A power adapter 5.5mm barrel"
-- **Proto Board**: "5x7cm prototype PCB double sided"
-- **Screw Terminals**: "PCB screw terminal block 5.08mm"
+> **Tip:** To use affiliate links, replace the URLs above with your Amazon Associates links.
 
 ## LED Strip Specifications
 
