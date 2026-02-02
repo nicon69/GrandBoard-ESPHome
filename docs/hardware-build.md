@@ -6,20 +6,18 @@ Complete hardware specifications and wiring guide for the GrandBoard ESPHome LED
 
 | Component | Specification | Qty | Link |
 |-----------|---------------|-----|------|
-| Microcontroller | Wemos D1 Mini (ESP8266) | 1 | [Amazon](https://www.amazon.com/s?k=wemos+d1+mini+esp8266) |
-| LED Strip | BTF-LIGHTING WS2811 RGB COB 12V | 1 | [Amazon](https://www.amazon.com/s?k=BTF-LIGHTING+WS2811+COB+LED+strip+12V) |
-| Level Shifter | 3.3V to 5V Logic Level Converter (4ch) | 1 | [Amazon](https://www.amazon.com/s?k=logic+level+converter+3.3v+5v+4+channel) |
-| Capacitor | 1000µF 16V Electrolytic | 1 | [Amazon](https://www.amazon.com/s?k=1000uf+16v+electrolytic+capacitor) |
-| Resistor Kit | 330Ω 1/4W (or assorted kit) | 1 | [Amazon](https://www.amazon.com/s?k=resistor+assortment+kit) |
-| Power Supply | 12V DC 5A Adapter | 1 | [Amazon](https://www.amazon.com/s?k=12v+5a+power+supply+adapter+5.5mm) |
-| DC Barrel Jack | 5.5mm x 2.1mm Female Panel Mount | 1 | [Amazon](https://www.amazon.com/s?k=dc+barrel+jack+panel+mount+5.5mm) |
-| Proto Board | 5x7cm Double-Sided PCB | 1 | [Amazon](https://www.amazon.com/s?k=5x7cm+prototype+pcb+board) |
-| Screw Terminals | 2-pin and 3-pin 5.08mm | 4 | [Amazon](https://www.amazon.com/s?k=pcb+screw+terminal+block+5.08mm) |
-| Wire | 22 AWG Stranded Silicone | 1 | [Amazon](https://www.amazon.com/s?k=22+awg+silicone+wire) |
-| Heat Shrink | Assorted Sizes Kit | 1 | [Amazon](https://www.amazon.com/s?k=heat+shrink+tubing+kit) |
-| Project Box | 100x60x25mm ABS Enclosure | 1 | [Amazon](https://www.amazon.com/s?k=project+box+enclosure+abs+100x60) |
-
-> **Tip:** To use affiliate links, replace the URLs above with your Amazon Associates links.
+| Microcontroller | Wemos D1 Mini (ESP8266) | 1 | [Amazon](https://www.amazon.com/s?k=wemos+d1+mini+esp8266&tag=rvpc-20) |
+| LED Strip | BTF-LIGHTING WS2811 RGB COB 12V | 1 | [Amazon](https://www.amazon.com/s?k=BTF-LIGHTING+WS2811+COB+LED+strip+12V&tag=rvpc-20) |
+| Level Shifter | 3.3V to 5V Logic Level Converter (4ch) | 1 | [Amazon](https://www.amazon.com/s?k=logic+level+converter+3.3v+5v+4+channel&tag=rvpc-20) |
+| Capacitor | 1000µF 16V Electrolytic | 1 | [Amazon](https://www.amazon.com/s?k=1000uf+16v+electrolytic+capacitor&tag=rvpc-20) |
+| Resistor Kit | 330Ω 1/4W (or assorted kit) | 1 | [Amazon](https://www.amazon.com/s?k=resistor+assortment+kit&tag=rvpc-20) |
+| Power Supply | 12V DC 5A Adapter | 1 | [Amazon](https://www.amazon.com/s?k=12v+5a+power+supply+adapter+5.5mm&tag=rvpc-20) |
+| DC Barrel Jack | 5.5mm x 2.1mm Female Panel Mount | 1 | [Amazon](https://www.amazon.com/s?k=dc+barrel+jack+panel+mount+5.5mm&tag=rvpc-20) |
+| Proto Board | 5x7cm Double-Sided PCB | 1 | [Amazon](https://www.amazon.com/s?k=5x7cm+prototype+pcb+board&tag=rvpc-20) |
+| Screw Terminals | 2-pin and 3-pin 5.08mm | 4 | [Amazon](https://www.amazon.com/s?k=pcb+screw+terminal+block+5.08mm&tag=rvpc-20) |
+| Wire | 22 AWG Stranded Silicone | 1 | [Amazon](https://www.amazon.com/s?k=22+awg+silicone+wire&tag=rvpc-20) |
+| Heat Shrink | Assorted Sizes Kit | 1 | [Amazon](https://www.amazon.com/s?k=heat+shrink+tubing+kit&tag=rvpc-20) |
+| Project Box | 100x60x25mm ABS Enclosure | 1 | [Amazon](https://www.amazon.com/s?k=project+box+enclosure+abs+100x60&tag=rvpc-20) |
 
 ## LED Strip Specifications
 
